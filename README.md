@@ -1,4 +1,4 @@
-# hackernews-async-ts
+# NodeJS Service
 
 [Hacker News](https://news.ycombinator.com/) showcase using typescript && egg
 

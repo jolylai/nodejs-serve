@@ -7,6 +7,8 @@ nav:
 
 ## 邮件
 
+> [Node Mailer](https://nodemailer.com/about/)
+
 ```ts
 import { Service } from "egg";
 
