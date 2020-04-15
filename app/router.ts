@@ -1,11 +1,13 @@
-import { Application } from 'egg';
+import { Application } from "egg";
 
 export default (app: Application) => {
   const { controller, router } = app;
 
-  router.get('/', controller.home.index);
-  router.get('/login', controller.login.index);
+  router.get("/", controller.home.index);
+  router.get("/login", controller.login.index);
 
-  router.resources('users', '/users', controller.users);
-  router.post('/users/create', controller.users.create);
+  router.resources("users", "/users", controller.users);
+  router.post("/users/create", controller.users.create);
+
+  router.get("/api/email/sent", controller.email.index);
 };
