@@ -1,14 +1,6 @@
 ---
 title: 登录
-nav:
-  title: NodeJS
-  path: /nodejs
-group:
-  title: EggJS
-  path: /eggjs
 ---
-
-# 登录
 
 ## JWT
 
@@ -19,24 +11,24 @@ yarn add jsonwebtoken
 ```
 
 ```ts
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 // 加密  同步
-const token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+const token = jwt.sign({ foo: "bar" }, "shhhhh");
 
 // 加密 异步
-jwt.sign({ foo: 'bar' }, privateKey, function(err, token) {
+jwt.sign({ foo: "bar" }, privateKey, function(err, token) {
   console.log(token);
 });
 
 // 同步
 // 验证 token
-var decoded = jwt.verify(token, 'shhhhh');
+var decoded = jwt.verify(token, "shhhhh");
 console.log(decoded.foo); // bar
 
 // 异步
 // 验证 token
-jwt.verify(token, 'shhhhh', function(err, decoded) {
+jwt.verify(token, "shhhhh", function(err, decoded) {
   console.log(decoded.foo); // bar
 });
 ```

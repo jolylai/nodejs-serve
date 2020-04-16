@@ -1,11 +1,8 @@
 ---
 title: MySQL
 nav:
-  title: NodeJS
-  path: /nodejs
-group:
-  title: EggJS
-  path: /eggjs
+  title: 指南
+  order: 1
 ---
 
 ## Docker

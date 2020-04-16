@@ -1,6 +1,6 @@
-import { Service } from "egg";
+import { Service } from 'egg';
 
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
 interface NodeMailerOpts {
   // 发送者的邮箱厂商，支持列表：https://nodemailer.com/smtp/well-known/
@@ -12,7 +12,7 @@ interface NodeMailerOpts {
   auth: {
     //   发送者账号
     user: string;
-    //smtp授权码 不是账号密码，到邮箱设置下获取
+    // smtp授权码 不是账号密码，到邮箱设置下获取
     pass: string;
   };
   // 发送者昵称和地址 eg: '"NodeMailer 👻" <chengyou126@126.com>'
@@ -40,8 +40,8 @@ export default class Email extends Service {
       secure: opts.secure, // true for 465, false for other ports
       auth: {
         user: opts.auth.user, // generated ethereal user
-        pass: opts.auth.pass // generated ethereal password
-      }
+        pass: opts.auth.pass, // generated ethereal password
+      },
     });
 
     // send mail with defined transport object
@@ -50,7 +50,7 @@ export default class Email extends Service {
       to: opts.to, // list of receivers
       subject: opts.subject, // Subject line
       text: opts.text, // plain text body
-      html: opts.html // html body
+      html: opts.html, // html body
     });
 
     return info;
