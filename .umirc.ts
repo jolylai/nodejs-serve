@@ -1,7 +1,7 @@
 import { defineConfig } from "dumi";
 
 export default defineConfig({
-  title: "NodeJS Serve",
+  title: "Service",
   mode: "site",
   extraBabelPlugins: [
     [
@@ -13,6 +13,9 @@ export default defineConfig({
       }
     ]
   ]
+  // define: {
+  //   HOST: process.env
+  // }
   // styles: ["https://cdn.bootcss.com/bulma/0.8.2/css/bulma.min.css"]
   // more config: https://d.umijs.org/config
 });

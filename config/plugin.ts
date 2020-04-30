@@ -1,4 +1,4 @@
-import { EggPlugin } from 'egg';
+import { EggPlugin } from "egg";
 
 const plugin: EggPlugin = {
   // static: true,
@@ -6,19 +6,23 @@ const plugin: EggPlugin = {
   //   enable: true,
   //   package: 'egg-view-nunjucks',
   // },
-  // cors: {
-  //   enable: true,
-  //   package: 'egg-cors',
-  // },
+  cors: {
+    enable: true,
+    package: "egg-cors"
+  },
   // mysql: {
   //   enable: true,
   //   package: 'egg-mysql',
   // },
 
+  validate: {
+    enable: true,
+    package: "egg-validate"
+  },
   sequelize: {
     enable: true,
-    package: 'egg-sequelize',
-  },
+    package: "egg-sequelize"
+  }
 };
 
 export default plugin;

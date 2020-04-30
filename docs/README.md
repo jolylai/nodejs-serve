@@ -1,10 +1,10 @@
 ---
 hero:
-  title: NodeJS Serve
-  desc: NodeJs 服务
+  title: Service
+  desc: NodeJs Service
   actions:
     - text: Getting Started
-      link: /api
+      link: /guide
 features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/881dc458-f20b-407b-947a-95104b5ec82b/k79dm8ih_w144_h144.png
     title: Feature 1
