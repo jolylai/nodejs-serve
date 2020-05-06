@@ -1,14 +1,16 @@
 import React from "react";
 import { UserOutlined, LockOutlined, GithubOutlined } from "@ant-design/icons";
 import { Form, Input, Checkbox, Button } from "antd";
+import md5 from "blueimp-md5";
 import { useRequest } from "@umijs/hooks";
 
 function Login() {
-  const { run } = useRequest(
+  const { run, loading } = useRequest(
     data => ({
       url: "http://127.0.0.1:7001/api/user/login",
       method: "post",
-      data
+      data,
+      credentials: "include"
     }),
     {
       manual: true
@@ -16,7 +18,9 @@ function Login() {
   );
 
   const onFinish = values => {
-    console.log("Success:", values);
+    if (values.password) {
+      values.password = md5(values.password);
+    }
     run(values);
   };
 
@@ -27,23 +31,16 @@ function Login() {
       onFinish={onFinish}
     >
       <Form.Item
-        name="username"
-        // rules={[{ required: true, message: "Please input your Username!" }]}
+        name="account"
+        rules={[{ required: true, message: "请输入账号!" }]}
       >
-        <Input
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
-        />
+        <Input prefix={<UserOutlined />} placeholder="用户名/邮箱/手机号" />
       </Form.Item>
       <Form.Item
         name="password"
-        // rules={[{ required: true, message: "Please input your Password!" }]}
+        rules={[{ required: true, message: "请输入密码!" }]}
       >
-        <Input
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="Password"
-        />
+        <Input prefix={<LockOutlined />} type="password" placeholder="密码" />
       </Form.Item>
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -56,7 +53,7 @@ function Login() {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" block>
+        <Button type="primary" htmlType="submit" block loading={loading}>
           登录
         </Button>
       </Form.Item>

@@ -11,10 +11,16 @@ export default (appInfo: EggAppInfo) => {
   config.middleware = [];
 
   config.security = {
-    domainWhiteList: ["http://localhost:8002"],
+    domainWhiteList: ["*"],
     csrf: {
       enable: false
     }
+  };
+
+  config.cors = {
+    credentials: true,
+    origin: ctx => ctx.get("origin"),
+    allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS"
   };
 
   config.sequelize = {

@@ -13,48 +13,52 @@ const columns = [
   },
   {
     title: "姓名",
-    dataIndex: "name",
-    copyable: true,
-    ellipsis: true,
-    width: 200
+    dataIndex: "name"
   },
   {
     title: "邮箱",
-    dataIndex: "email"
+    dataIndex: "email",
+    copyable: true,
+    ellipsis: true
   },
   {
     title: "联系方式",
     dataIndex: "mobile"
   },
-  {
-    title: "年龄",
-    dataIndex: "age"
-  },
-  {
-    title: "地址",
-    dataIndex: "address"
-  },
-  {
-    title: "性别",
-    dataIndex: "gender",
-    valueEnum: {
-      femel: {
-        text: "女"
-      },
-      male: {
-        text: "男"
-      },
-      secrecy: {
-        text: "保密"
-      }
-    }
-  },
+  // {
+  //   title: "年龄",
+  //   dataIndex: "age"
+  // },
+  // {
+  //   title: "地址",
+  //   dataIndex: "address"
+  // },
+  // {
+  //   title: "性别",
+  //   dataIndex: "gender",
+  //   valueEnum: {
+  //     femel: {
+  //       text: "女"
+  //     },
+  //     male: {
+  //       text: "男"
+  //     },
+  //     secrecy: {
+  //       text: "保密"
+  //     }
+  //   }
+  // },
   {
     title: "创建时间",
-    key: "since",
-    dataIndex: "created_at",
+    dataIndex: "createdAt",
     valueType: "dateTime",
-    hideInForm: true
+    hideinSerch: true
+  },
+  {
+    title: "更新时间",
+    dataIndex: "updatedAt",
+    valueType: "dateTime",
+    hideinSerch: true
   },
   {
     title: "操作",
@@ -116,19 +120,19 @@ export default () => {
         columns={columns}
         actionRef={actionRef}
         request={async (params = {}) => {
-          const data = await request("http://127.0.0.1:7001/api/users", {
-            //   params: {
-            //     ...params,
-            //     page: params.current,
-            //     per_page: params.pageSize
-            //   }
-          });
-          console.log("data: ", data);
+          const { list, total } = await request(
+            "http://127.0.0.1:7001/api/user",
+            {
+              params,
+              credentials: "include"
+            }
+          );
+
           return {
-            data,
+            data: list,
             page: params.current,
             success: true,
-            total: data.length
+            total: total
           };
         }}
         rowKey="id"

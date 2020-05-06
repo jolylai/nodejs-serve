@@ -29,11 +29,18 @@ exports.cors = {
 // config/config.default.js
 module.exports = appInfo => {
   const config = {};
+
   config.security = {
-    domainWhiteList: ["http://localhost:8899"], // 没有配置的话，错误信息：404
+    domainWhiteList: ["*"], // 没有配置的话，错误信息：404
     csrf: {
       enable: false // 暂时禁用掉 csrf，错误信息：403 missing csrf token
     }
+  };
+
+  config.cors = {
+    credentials: true,
+    origin: ctx => ctx.get("origin"),
+    allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS"
   };
 
   return config;

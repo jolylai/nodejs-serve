@@ -12,20 +12,42 @@ const loginValidateRule = {
   password: { type: "string", require: true }
 };
 
+// 新建用户参数效验
+const createValidataRule = {
+  name: { type: "string", require: true },
+  email: { type: "string", require: true },
+  mobile: { type: "string", require: true },
+  age: { type: "string", require: true },
+  gender: { type: "string", require: true }
+};
+
 class UserController extends Controller {
   async index() {
     const ctx = this.ctx;
-    // const { Sequelize } = this.app;
 
-    const { current = 1, pageSize = 10, ...restParams } = ctx.query;
+    this.ctx.cookies.set("cooooo", "111");
+
+    const { current = 1, pageSize = 10, name, email } = ctx.query;
+
+    // 查询参数
+    const queryParams: { name?: string; email?: string } = {};
+
+    if (name) {
+      queryParams.name = name;
+    }
+
+    if (email) {
+      queryParams.email = email;
+    }
 
     const query = {
       limit: toInt(pageSize),
       offset: toInt((current - 1) * pageSize),
-      where: restParams
+      where: queryParams
     };
 
     const { rows, count } = await ctx.model.User.findAndCountAll(query);
+
     ctx.body = {
       list: rows,
       total: count
@@ -39,8 +61,13 @@ class UserController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    const { name, age } = ctx.request.body;
-    const user = await ctx.model.User.create({ name, age });
+
+    // 校验 `ctx.request.body` 是否符合我们预期的格式
+    // 如果参数校验未通过，将会抛出一个 status = 422 的异常
+    ctx.validate(createValidataRule, ctx.request.body);
+
+    const user = await ctx.model.User.create(ctx.request.body);
+
     ctx.status = 201;
     ctx.body = user;
   }
@@ -70,31 +97,6 @@ class UserController extends Controller {
 
     await user.destroy();
     ctx.status = 200;
-  }
-
-  /**
-   *  登录
-   */
-
-  async login() {
-    const ctx = this.ctx;
-    // 校验 `ctx.request.body` 是否符合我们预期的格式
-    // 如果参数校验未通过，将会抛出一个 status = 422 的异常
-    ctx.validate(loginValidateRule, ctx.request.body);
-
-    const user = await ctx.model.User.findOne({
-      where: { name: ctx.request.body.username }
-    });
-
-    if (user == null) {
-      ctx.body = {
-        status: false,
-        message: "用户名或密码错误"
-      };
-      ctx.status = 401;
-      return;
-    }
-    ctx.body = { user };
   }
 }
 
